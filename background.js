@@ -95,7 +95,7 @@ chrome.action.onClicked.addListener(async () => {
 })
 
 chrome.tabs.onUpdated.addListener(async (_, changeInfo, tab) => {
-    if (tab.active && changeInfo?.status === 'complete' && tab.url.includes('youtube.com')) {
+    if (tab.active && changeInfo?.status === 'complete') {
         const state = await getState({ key: 'state' })
         sendMessage({ message: { active: state.active, event: 'onUpdated' } })
     }

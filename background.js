@@ -1,6 +1,6 @@
 function setBadgeInfo(active = true) {
     chrome.action.setBadgeText({ text: !!active ? 'on' : 'off' })
-    chrome.action.setBadgeBackgroundColor({ color: !!active ? '#F5F5F5': '#F5F5F5' }) 
+    chrome.action.setBadgeBackgroundColor({ color: !!active ? '#941b25': '#707070' })
 }
 
 async function getActiveTab() {

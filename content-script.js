@@ -1,78 +1,76 @@
 class ObserverWrapper {
-    #observer
-    #selector = 'ytd-app'
-    #isHidden = true
-    #config = { childList: true, subtree: true }
-
     constructor() {
-        this.#observer = undefined
+        this._observer = undefined 
+        this._selector = 'ytd-app'
+        this._isHidden = true
+        this._config = { childList: true, subtree: true } 
     }
 
-    #composeObserver() {
-        const composeBox = document.querySelector(this.#selector)
+    _composeObserver() {
+        const composeBox = document.querySelector(this._selector)
 
-        const mutationObserver = new MutationObserver(this.#handleMutations);
-        mutationObserver.observe(composeBox, this.#config)
+        const mutationObserver = new MutationObserver(this._handleMutations)
+        mutationObserver.observe(composeBox, this._config)
 
-        this.#observer = mutationObserver
+        this._observer = mutationObserver
     }
 
-    #isMenuOption(mutation) {
+    _isMenuOption(mutation) {
         const { localName, innerText } = mutation.target
-        return localName === 'yt-formatted-string' && innerText === 'Add to queue'
+        return localName == 'yt-formatted-string' && innerText === 'Add to queue'
     }
 
-    #isPlaylistIconHover(mutation) {
+    _isPlaylistIconHover(mutation) {
         const { target, addedNodes } = mutation
-        return !!addedNodes?.length && target.id === 'hover-overlays'
+        return !!addedNodes?.length && target.id === 'hover-overlays' 
     }
 
-    #isChildList(mutation) {
+    _isChildList(mutation) {
         return mutation.type === 'childList'
     }
 
-    #filterMutations = (mutation) => {
-        return this.#isChildList(mutation) &&
-            (this.#isPlaylistIconHover(mutation) || this.#isMenuOption(mutation))
+    _filterMutations = (mutation) => {
+        return this._isChildList(mutation) && 
+                (this._isPlaylistIconHover(mutation) || this._isMenuOption(mutation))
     }
 
-    #handleMutations = (mutationsList) => {
-        const filteredList = mutationsList.filter(this.#filterMutations)
+    _handleMutations = (mutationsList) => {
+        const filteredList = mutationsList.filter(this._filterMutations)
 
         if (!filteredList?.length) return
-        this.#toggleQueueUI(filteredList)
+        this._toggleQueueUI(filteredList)
     }
 
-    #toggleQueueUI(mutationsList) {
-        const display = this.#isHidden ? 'none' : 'block'
+    _toggleQueueUI(mutationsList) {
+        const display = this._isHidden ? 'none' : 'block'
 
         for (let mutation of mutationsList) {
             const { target, addedNodes } = mutation
 
-            if (this.#isPlaylistIconHover(mutation)) {
-                const playlistIcon = Array.from(addedNodes).find((a) => a.ariaLabel === 'Add to queue')
+            if (this._isPlaylistIconHover(mutation)) {
+                const playlistIcon = Array.from(addedNodes)
+                  .find(a => a.ariaLabel === 'Add to queue')
                 playlistIcon?.setAttribute('style', `display: ${display}`)
             }
 
-            if (this.#isMenuOption(mutation)) {
-                const element = target.parentElement.parentElement;
+            if (this._isMenuOption(mutation)) {
+                const element = target.parentElement.parentElement
                 element?.setAttribute('style', `display: ${display}`)
             }
         }
     }
 
     hideUI() {
-        this.#isHidden = true
-        if (!this.#observer) {
-            this.#composeObserver()
+        this._isHidden = true
+        if (!this._observer) { 
+            this._composeObserver()
         }
     }
 
     showUI() {
-        this.#isHidden = false
-    }
+        this._isHidden = false 
+    } 
 }
-
 
 function listenForMessage(callback) {
     chrome.runtime.onMessage.addListener(message => {

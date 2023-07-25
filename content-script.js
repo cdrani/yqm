@@ -70,11 +70,6 @@ class ObserverWrapper {
     showUI() {
         this._isHidden = false 
     } 
-
-    reset() {
-        this._observer?.disconnect()
-        this._observer = undefined
-    }
 }
 
 function listenForMessage(callback) {

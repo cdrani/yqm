@@ -9,6 +9,21 @@
         "48": "icons/icon48.png",
         "128": "icons/icon128.png"
     },
+    "content_scripts": [
+        {
+            "run_at": "document_idle",
+            "js": ["content-script.js"],
+            "matches": ["*://*.youtube.com/*"]
+        }
+    ],
+    "web_accessible_resources": [
+        {
+            "matches": ["*://*.youtube.com/*"],
+            "resources": [
+                "content-script.js"
+            ]
+        }
+    ],
     "action": {},
     "permissions": [
         "activeTab",

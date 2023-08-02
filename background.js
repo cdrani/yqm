@@ -21,16 +21,6 @@ async function sendMessage({ message }) {
     return await messenger({ tabId: activeTab.id, message })
 }
 
-async function registerScripts() {
-    await chrome.scripting.registerContentScripts([{
-        id: 'script-content',
-        js: ['content-script.js'],
-        runAt: 'document_idle',
-        matches: ['*://*.youtube.com/*']
-    }])
-}
-
-
 chrome.runtime.onInstalled.addListener(async () => {
     await registerScripts()
     const result = await setState({ 

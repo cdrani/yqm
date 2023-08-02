@@ -15,6 +15,11 @@
         "scripting",
         "storage"
     ],
+    "registerScripts": [{
+        "run_at": "document_idle",
+        "js": ['content-script.js'],
+        "matches": ['*://*.youtube.com/*']
+    }],
     "host_permissions": ["*://*.youtube.com/*"],
     "background": {
         "service_worker": "background.js"

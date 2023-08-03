@@ -21,7 +21,6 @@ async function sendMessage({ message }) {
     return await messenger({ tabId: activeTab.id, message })
 }
 
-
 chrome.runtime.onInstalled.addListener(async () => {
     const result = await setState({ 
         key: 'state',

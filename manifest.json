@@ -16,14 +16,6 @@
             "matches": ["*://*.youtube.com/*"]
         }
     ],
-    "web_accessible_resources": [
-        {
-            "matches": ["*://*.youtube.com/*"],
-            "resources": [
-                "content-script.js"
-            ]
-        }
-    ],
     "action": {},
     "permissions": [
         "activeTab",

@@ -59,3 +59,10 @@ Guidance by myself and other contributors will be readily available when possibl
 - [ ] Add Changelog
 - [ ] Save release artifacts under Release section
 
+## Shout Outs!
+❤️ Big thanks for all those who lent their time and effort for the betterment of YQM! ❤️ 
+
+<a href="https://github.com/cdrani/yqm/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=cdrani/yqm" />
+</a>
+
